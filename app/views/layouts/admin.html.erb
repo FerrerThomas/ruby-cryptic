@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="es">
   <head>
+    <meta charset="utf-8">
     <title><%= content_for(:title) || "Administración" %> · Rubípticos</title>
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <meta name="robots" content="noindex">
@@ -12,21 +13,43 @@
     <link rel="icon" href="/icon.png" type="image/png">
     <link rel="icon" href="/icon.svg" type="image/svg+xml">
 
+    <%= render "layouts/fonts" %>
     <%= stylesheet_link_tag :app, "data-turbo-track": "reload" %>
     <%= javascript_importmap_tags %>
   </head>
 
-  <body>
-    <header>
-      <span>Rubípticos · Administración</span>
-      <span><%= Current.user.email_address %></span>
-      <%= button_to "Cerrar sesión", session_path, method: :delete %>
+  <body class="bg-ruby-crystal min-vh-100 d-flex flex-column">
+    <header class="admin-header sticky-top">
+      <div class="container d-flex align-items-center justify-content-between gap-3 py-2">
+        <%= link_to admin_root_path, class: "d-flex align-items-center gap-2 text-decoration-none" do %>
+          <%= render "shared/gem_logo" %>
+          <span class="d-flex flex-column lh-sm">
+            <span class="brand-title fs-5">Rubípticos</span>
+            <span class="eyebrow" style="letter-spacing: .18em;">Administración</span>
+          </span>
+        <% end %>
+
+        <div class="d-flex align-items-center gap-3">
+          <div class="text-end d-none d-sm-block lh-sm">
+            <div class="small fw-semibold"><%= Current.user.email_address %></div>
+            <span class="badge badge-role"><%= t("activerecord.attributes.user.roles.#{Current.user.role}") %></span>
+          </div>
+          <%= button_to session_path, method: :delete, class: "btn btn-sm btn-outline-primary d-flex align-items-center gap-1" do %>
+            <i class="bi bi-box-arrow-right" aria-hidden="true"></i>
+            <span>Cerrar sesión</span>
+          <% end %>
+        </div>
+      </div>
     </header>
 
-    <% if notice %><p><%= notice %></p><% end %>
-    <% if alert %><p><%= alert %></p><% end %>
+    <main class="container flex-grow-1 py-4">
+      <% if notice %>
+        <div class="alert alert-success" role="status"><%= notice %></div>
+      <% end %>
+      <% if alert %>
+        <div class="alert alert-danger" role="alert"><%= alert %></div>
+      <% end %>
 
-    <main>
       <%= yield %>
     </main>
   </body>

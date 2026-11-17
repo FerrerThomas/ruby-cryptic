@@ -1,0 +1,15 @@
+<%# Isotipo: rubí tallado. Uso: render "shared/gem_logo", size: :lg %>
+<% size = local_assigns[:size] %>
+<span class="gem-logo <%= "gem-logo--#{size}" if size %>" aria-hidden="true">
+  <span class="gem-logo__inner gem-sheen">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" class="text-white">
+      <polygon fill="rgba(255,255,255,0.15)" points="6,3 18,3 22,8 12,21 2,8"></polygon>
+      <line stroke="rgba(255,255,255,0.7)" x1="2" x2="22" y1="8" y2="8"></line>
+      <line stroke="rgba(255,255,255,0.6)" x1="6" x2="12" y1="3" y2="8"></line>
+      <line stroke="rgba(255,255,255,0.6)" x1="18" x2="12" y1="3" y2="8"></line>
+      <line stroke="rgba(255,255,255,0.7)" x1="12" x2="12" y1="8" y2="21"></line>
+      <line stroke="rgba(255,255,255,0.4)" x1="2" x2="12" y1="8" y2="21"></line>
+      <line stroke="rgba(255,255,255,0.4)" x1="22" x2="12" y1="8" y2="21"></line>
+    </svg>
+  </span>
+</span>

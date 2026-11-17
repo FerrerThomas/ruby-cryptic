@@ -1,0 +1,54 @@
+// Paleta y tipografía "rubí" de Rubípticos.
+// Se carga ANTES de Bootstrap para pisar sus variables por defecto.
+
+// Rubí
+$ruby-50: #FDF2F4;
+$ruby-100: #FCE4E8;
+$ruby-200: #FAC8D2;
+$ruby-300: #F59FB0;
+$ruby-500: #E12A50;
+$ruby-600: #C81E3D;
+$ruby-700: #9E122C;
+$ruby-800: #7F0E23;
+$ruby-900: #530614;
+
+// Pergamino y tinta
+$parchment-100: #FAFAF7;
+$parchment-200: #F4F2EB;
+$parchment-300: #E7E3D6;
+$ink: #1E1B18;
+$ink-muted: #5E5850;
+$ink-faint: #8E877C;
+
+// Tipografías (se cargan desde Google Fonts en layouts/_fonts)
+$font-display: "Cinzel", Georgia, serif;
+$font-serif: "Newsreader", "EB Garamond", Georgia, serif;
+
+// --- Bootstrap ---
+$primary: $ruby-600;
+$secondary: $ink-muted;
+$danger: $ruby-700;
+$light: $parchment-200;
+$dark: $ink;
+
+$body-bg: $parchment-100;
+$body-color: $ink;
+$link-color: $ruby-700;
+$border-color: $ruby-200;
+
+$font-family-sans-serif: "Plus Jakarta Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+$font-family-monospace: "JetBrains Mono", SFMono-Regular, Consolas, monospace;
+$headings-font-family: $font-serif;
+$headings-font-weight: 600;
+
+// Esquinas rectas: el "corte de gema" lo dan los chaflanes (.facet-chamfer-*)
+$border-radius: .125rem;
+$border-radius-sm: .125rem;
+$border-radius-lg: .25rem;
+
+$input-bg: #fff;
+$input-border-color: $ruby-200;
+$input-focus-border-color: $ruby-500;
+$input-btn-focus-color: rgba($ruby-600, .2);
+$input-placeholder-color: $ink-faint;
+$form-label-font-weight: 600;

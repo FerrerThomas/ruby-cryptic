@@ -1,4 +1,7 @@
 <% content_for :title, "Panel de administración" %>
 
-<h1>Panel de administración</h1>
-<p>Sesión iniciada como <%= Current.user.email_address %>.</p>
+<div class="pb-3 mb-4 border-bottom">
+  <div class="eyebrow d-flex align-items-center gap-2"><span class="gem-diamond"></span> Backend</div>
+  <h1 class="mb-0">Panel de administración</h1>
+  <p class="brand-tagline mb-0">Sesión iniciada como <%= Current.user.email_address %>.</p>
+</div>
