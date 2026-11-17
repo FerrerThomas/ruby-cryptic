@@ -1,6 +1,5 @@
 Rails.application.routes.draw do
   resource :session
-  resources :passwords, param: :token
 
   # Backend de administración (requiere login)
   namespace :admin do

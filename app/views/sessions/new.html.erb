@@ -1,11 +1,13 @@
-<%= tag.div(flash[:alert], style: "color:red") if flash[:alert] %>
-<%= tag.div(flash[:notice], style: "color:green") if flash[:notice] %>
+<%# Vista provisoria: el diseño final llega en la etapa de estilos. %>
+<%= tag.div(flash[:alert], class: "alert alert-danger") if flash[:alert] %>
+<%= tag.div(flash[:notice], class: "alert alert-success") if flash[:notice] %>
+
+<h1>Iniciar sesión</h1>
 
 <%= form_with url: session_path do |form| %>
-  <%= form.email_field :email_address, required: true, autofocus: true, autocomplete: "username", placeholder: "Enter your email address", value: params[:email_address] %><br>
-  <%= form.password_field :password, required: true, autocomplete: "current-password", placeholder: "Enter your password", maxlength: 72 %><br>
-  <%= form.submit "Sign in" %>
+  <%= form.label :email_address, "Email" %>
+  <%= form.email_field :email_address, required: true, autofocus: true, autocomplete: "username", value: params[:email_address] %><br>
+  <%= form.label :password, "Contraseña" %>
+  <%= form.password_field :password, required: true, autocomplete: "current-password", maxlength: 72 %><br>
+  <%= form.submit "Ingresar" %>
 <% end %>
-<br>
-
-<%= link_to "Forgot password?", new_password_path %>

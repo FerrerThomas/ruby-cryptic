@@ -25,8 +25,9 @@ module Authentication
       Current.session ||= find_session_by_cookie
     end
 
+    # Si desactivan a un usuario, sus sesiones abiertas dejan de valer al instante.
     def find_session_by_cookie
-      Session.find_by(id: cookies.signed[:session_id]) if cookies.signed[:session_id]
+      Session.joins(:user).merge(User.active).find_by(id: cookies.signed[:session_id]) if cookies.signed[:session_id]
     end
 
     def request_authentication
