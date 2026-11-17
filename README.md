@@ -71,7 +71,14 @@ Abrir http://localhost:3000.
 
 ## Credenciales de prueba
 
-Se completan cuando esté el login de administradores (#2).
+`bin/rails db:setup` (o `bin/rails db:seed` si la base ya existe) crea estos usuarios para entrar al backend en `/session/new`:
+
+| Rol | Email | Contraseña | Puede |
+|---|---|---|---|
+| Administrador | `admin@rubipticos.test` | `admin1234` | Todo el backend |
+| Editor de puntajes | `editor@rubipticos.test` | `editor1234` | Solo editar puntos y multiplicadores |
+
+Un usuario desactivado no puede iniciar sesión, y si ya estaba logueado pierde la sesión en el siguiente pedido.
 
 ## Decisiones de diseño
 
@@ -79,6 +86,14 @@ Se completan cuando esté el login de administradores (#2).
 - **Hora de Argentina.** `config.time_zone = "America/Argentina/Buenos_Aires"`. Para fechas usamos `Date.current` y `Time.current`, nunca `Date.today`.
 - **Bootstrap con cssbundling-rails.** El SCSS se compila con `sass` desde `node_modules`. El JS de Bootstrap se carga con importmap.
   - `postcss-cli` está fijado en la v11 y `chokidar` en la v4 (con `resolutions` en `package.json`), porque las versiones nuevas necesitan Node 22.12 o superior.
+- **Autenticación con el generador de Rails 8** (`bin/rails g authentication`), sin Devise. Los usuarios del backend (`User`) tienen un rol (`admin` o `score_editor`) y pueden desactivarse. No hay recuperación de contraseña por email: la reinicia un admin.
+  - **Todos los controladores piden login por defecto.** Las pantallas públicas (el juego, el ranking, etc.) tienen que declararlo explícitamente:
+    ```ruby
+    class GamesController < ApplicationController
+      allow_unauthenticated_access
+    end
+    ```
+  - Los controladores del backend van en el namespace `Admin` y heredan de `Admin::BaseController`, que usa el layout `admin`.
 - **Lógica de negocio en `app/services/`.** Puntaje, rachas y sincronización van en servicios, no en los controladores.
 - **Tests con Minitest**, el framework que trae Rails.
 - **Catálogo de crípticos**: se usa la API de la cátedra sin modificaciones (`https://ecorrons.github.io/cryptics-api/v1/cryptics.json`).
