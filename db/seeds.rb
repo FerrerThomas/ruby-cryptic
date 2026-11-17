@@ -18,3 +18,41 @@ puts "Creando usuarios del backend..."
     user.role = attrs[:role]
   end
 end
+
+# --- Configuración del juego (#5) ---
+# Tipos y dificultades que reconoce el sistema (las claves son las de la API).
+# Valores iniciales del enunciado: 100 puntos por tipo, multiplicadores 1, 2 y 3.
+# Si la fila ya existe no se toca, así no se pisan valores editados desde el backend.
+# Tiene que ir ANTES de cargar los crípticos, que referencian tipos y dificultades.
+puts "Creando tipos de críptico y dificultades..."
+
+{
+  "anagrama" => "Anagrama",
+  "oculta" => "Oculta",
+  "charada" => "Charada",
+  "contenedor" => "Contenedor",
+  "inversion" => "Inversión",
+  "supresion" => "Supresión",
+  "homofono" => "Homófono",
+  "doble_definicion" => "Doble definición",
+  "iniciales" => "Iniciales",
+  "finales" => "Finales",
+  "sustitucion" => "Sustitución",
+  "simbolos" => "Símbolos",
+  "combinada" => "Combinada"
+}.each do |key, name|
+  CrypticType.find_or_create_by!(key: key) do |type|
+    type.name = name
+    type.points = 100
+  end
+end
+
+[
+  { key: "facil", name: "Fácil", multiplier: 1, reference_seconds: 60 },
+  { key: "medio", name: "Medio", multiplier: 2, reference_seconds: 180 },
+  { key: "avanzado", name: "Avanzado", multiplier: 3, reference_seconds: 300 }
+].each.with_index(1) do |attrs, position|
+  Difficulty.find_or_create_by!(key: attrs[:key]) do |difficulty|
+    difficulty.assign_attributes(attrs.except(:key).merge(position: position))
+  end
+end

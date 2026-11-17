@@ -4,6 +4,12 @@ es:
       user:
         one: Usuario
         other: Usuarios
+      cryptic_type:
+        one: Tipo de críptico
+        other: Tipos de críptico
+      difficulty:
+        one: Dificultad
+        other: Dificultades
     attributes:
       user:
         email_address: Email
@@ -14,3 +20,13 @@ es:
         roles:
           admin: Administrador
           score_editor: Editor de puntajes
+      cryptic_type:
+        key: Clave
+        name: Nombre
+        points: Puntos
+      difficulty:
+        key: Clave
+        name: Nombre
+        multiplier: Multiplicador
+        reference_seconds: Tiempo de referencia (segundos)
+        position: Orden
