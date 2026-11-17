@@ -83,6 +83,82 @@ Se completan cuando esté el login de administradores (#2).
 - **Tests con Minitest**, el framework que trae Rails.
 - **Catálogo de crípticos**: se usa la API de la cátedra sin modificaciones (`https://ecorrons.github.io/cryptics-api/v1/cryptics.json`).
 
+## Guía de estilos
+
+La app tiene un estilo "rubí": fondo pergamino claro, detalles en rojo rubí y esquinas cortadas en diagonal, como una gema tallada. Los estilos están en `app/assets/stylesheets/ruby/`:
+
+| Archivo | Qué tiene |
+|---|---|
+| `_variables.scss` | Paleta, tipografías y variables de Bootstrap que pisamos. Se carga **antes** de Bootstrap. |
+| `_components.scss` | Clases propias reutilizables. Se carga **después** de Bootstrap. |
+
+### Paleta y tipografías
+
+| Variable | Color | Uso |
+|---|---|---|
+| `$ruby-600` | `#C81E3D` | Color principal (`$primary`) |
+| `$ruby-700` | `#9E122C` | Links, errores (`$danger`) |
+| `$ruby-50` … `$ruby-200` | rosados claros | Fondos suaves y bordes |
+| `$parchment-100` | `#FAFAF7` | Fondo de la página |
+| `$ink` / `$ink-muted` / `$ink-faint` | grises cálidos | Texto principal, secundario y apagado |
+
+- **Cinzel** (`.brand-title`): solo para la marca "RUBÍPTICOS".
+- **Newsreader** (serif): títulos `h1`…`h6`, las pistas y los textos en itálica.
+- **Plus Jakarta Sans**: texto general, formularios y botones.
+- **JetBrains Mono** (`.font-monospace`, `.eyebrow`): números, contadores, temporizadores y etiquetas.
+
+Las fuentes se cargan desde Google Fonts en `app/views/layouts/_fonts.html.erb`, que ya incluyen los layouts `application` y `admin`.
+
+### Bootstrap ya viene "pintado"
+
+Usen las clases de Bootstrap de siempre: `btn btn-primary`, `btn-outline-primary`, `form-control`, `alert alert-danger`, `badge`, `container`, `row`/`col`, etc. Ya salen con los colores y tipografías del estilo rubí. Las clases propias son solo para lo que Bootstrap no tiene.
+
+### Clases propias
+
+| Clase | Para qué |
+|---|---|
+| `card-gem-frame` + `card-gem` | Tarjeta blanca tallada con filetes rubí arriba y abajo (ej.: la pista del críptico). |
+| `card-gem__corner card-gem__corner--tl` (`tr`, `bl`, `br`) | Rombitos en las esquinas de la tarjeta. |
+| `btn-gem` | Botón rubí principal con brillo (la acción más importante de la pantalla). |
+| `facet-chamfer-sm` / `facet-chamfer-lg` | Esquinas cortadas en diagonal (7px / 14px) en cualquier elemento: casilleros de letras, badges, etc. |
+| `eyebrow` | Etiqueta chica en mayúsculas y monoespaciada ("ACERTIJO CRÍPTICO"). |
+| `brand-title` / `brand-tagline` | La marca "RUBÍPTICOS" y la bajada en itálica. |
+| `gem-rule` | Línea separadora fina rubí que se desvanece en los extremos. |
+| `gem-diamond` | Rombito decorativo. |
+| `gem-sheen` | Reflejo de luz sobre un elemento. |
+| `badge-role` | Badge chico con borde rubí. |
+| `bg-ruby-crystal` | Fondo pergamino con enrejado (ya lo tiene el `<body>` de los layouts). |
+
+Logo del rubí: `<%= render "shared/gem_logo" %>` (o `size: :lg` para el grande).
+
+### Ejemplo
+
+```erb
+<div class="card-gem-frame">
+  <section class="card-gem p-4 text-center">
+    <span class="card-gem__corner card-gem__corner--tl"></span>
+    <span class="card-gem__corner card-gem__corner--tr"></span>
+    <span class="card-gem__corner card-gem__corner--bl"></span>
+    <span class="card-gem__corner card-gem__corner--br"></span>
+
+    <div class="eyebrow mb-2">Acertijo críptico</div>
+    <h1 class="h2">«Mi metido en el hogar da una prenda» <span class="font-monospace text-primary">(6)</span></h1>
+
+    <button class="btn btn-gem px-4 py-2 mt-3">Comprobar palabra</button>
+  </section>
+</div>
+```
+
+> `card-gem` usa `clip-path` para cortar las esquinas, y eso recorta la sombra. Por eso la sombra y el borde van en el `card-gem-frame` de afuera: no se olviden del envoltorio.
+
+### Reglas para no pisarnos
+
+- **No modifiquen `_variables.scss` ni `_components.scss` sin avisar**: los usa todo el equipo. Si falta algo general, propónganlo en el PR.
+- **Estilos propios de una pantalla van en su propio archivo**, por ejemplo `ruby/_game.scss` o `ruby/_ranking.scss`, importado al final de `app/assets/stylesheets/application.bootstrap.scss`.
+- **Usen las variables, no colores sueltos**: `$ruby-600` en vez de `#C81E3D`.
+- **No usen `style="..."` salvo para un ajuste puntual** (un ancho máximo, por ejemplo).
+- Los avisos `Deprecation Warning` al compilar el CSS son normales: vienen de que Bootstrap 5 todavía usa `@import`. Mientras termine con `clean exit`, compiló bien.
+
 ## Cómo trabajamos
 
 - Una rama por issue, con el número adelante: `git checkout -b 12-flujo-partida`.
