@@ -1,0 +1,16 @@
+es:
+  activerecord:
+    models:
+      user:
+        one: Usuario
+        other: Usuarios
+    attributes:
+      user:
+        email_address: Email
+        password: Contraseña
+        password_confirmation: Confirmación de contraseña
+        role: Rol
+        active: Activo
+        roles:
+          admin: Administrador
+          score_editor: Editor de puntajes

@@ -1,0 +1,52 @@
+<% content_for :title, "Iniciar sesión · Rubípticos" %>
+
+<main class="container d-flex flex-column justify-content-center align-items-center min-vh-100 py-5">
+  <div class="text-center mb-4">
+    <%= render "shared/gem_logo", size: :lg %>
+    <div class="brand-title fs-2 mt-3">Rubípticos</div>
+    <div class="brand-tagline small">Acertijos de palabras &amp; mente cruzada</div>
+  </div>
+
+  <div class="card-gem-frame w-100" style="max-width: 26rem;">
+    <section class="card-gem p-4 p-sm-5">
+      <span class="card-gem__corner card-gem__corner--tl"></span>
+      <span class="card-gem__corner card-gem__corner--tr"></span>
+      <span class="card-gem__corner card-gem__corner--bl"></span>
+      <span class="card-gem__corner card-gem__corner--br"></span>
+
+      <div class="d-flex align-items-center justify-content-center gap-2 mb-2">
+        <span class="gem-rule flex-grow-0" style="width: 1.5rem;"></span>
+        <span class="eyebrow">Administración</span>
+        <span class="gem-rule flex-grow-0" style="width: 1.5rem;"></span>
+      </div>
+      <h1 class="h3 text-center mb-1">Iniciar sesión</h1>
+      <p class="brand-tagline small text-center mb-4">Ingresá con tu cuenta de administrador o editor de puntajes.</p>
+
+      <% if flash[:alert] %>
+        <div class="alert alert-danger py-2 small" role="alert"><%= flash[:alert] %></div>
+      <% end %>
+      <% if flash[:notice] %>
+        <div class="alert alert-success py-2 small" role="status"><%= flash[:notice] %></div>
+      <% end %>
+
+      <%= form_with url: session_path do |form| %>
+        <div class="mb-3">
+          <%= form.label :email_address, "Email", class: "form-label small" %>
+          <%= form.email_field :email_address, required: true, autofocus: true, autocomplete: "username",
+                placeholder: "nombre@ejemplo.com", value: params[:email_address], class: "form-control" %>
+        </div>
+
+        <div class="mb-4">
+          <%= form.label :password, "Contraseña", class: "form-label small" %>
+          <%= form.password_field :password, required: true, autocomplete: "current-password",
+                maxlength: 72, class: "form-control" %>
+        </div>
+
+        <%= form.button type: :submit, class: "btn btn-gem w-100 py-2 d-flex align-items-center justify-content-center gap-2" do %>
+          <i class="bi bi-box-arrow-in-right" aria-hidden="true"></i>
+          <span>Ingresar</span>
+        <% end %>
+      <% end %>
+    </section>
+  </div>
+</main>
