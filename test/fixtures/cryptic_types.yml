@@ -1,0 +1,14 @@
+anagrama:
+  key: anagrama
+  name: Anagrama
+  points: 100
+
+oculta:
+  key: oculta
+  name: Oculta
+  points: 100
+
+contenedor:
+  key: contenedor
+  name: Contenedor
+  points: 100

@@ -1,0 +1,20 @@
+facil:
+  key: facil
+  name: Fácil
+  multiplier: 1
+  reference_seconds: 60
+  position: 1
+
+medio:
+  key: medio
+  name: Medio
+  multiplier: 2
+  reference_seconds: 180
+  position: 2
+
+avanzado:
+  key: avanzado
+  name: Avanzado
+  multiplier: 3
+  reference_seconds: 300
+  position: 3
