@@ -94,6 +94,11 @@ Un usuario desactivado no puede iniciar sesión, y si ya estaba logueado pierde 
     end
     ```
   - Los controladores del backend van en el namespace `Admin` y heredan de `Admin::BaseController`, que usa el layout `admin`.
+- **Configuración del juego en la base, no en el código.** Se edita desde el backend y la cargan los seeds:
+  - `CrypticType`: los 13 tipos de la API (`key: "anagrama"`) con su nombre para mostrar y sus `points` (10 a 1000).
+  - `Difficulty`: fácil, medio y avanzado (`key: "medio"`) con su `multiplier` (mayor que 0 y hasta 5) y su `reference_seconds` (60/180/300). El tiempo de referencia es fijo: no se puede cambiar.
+  - `Setting.current`: una sola fila con la URL de la fuente de crípticos y el texto de bienvenida.
+  - Los crípticos referencian su tipo y su dificultad por foreign key. Las partidas guardan sus puntos al resolverse, así que cambiar la configuración no recalcula las partidas anteriores.
 - **Lógica de negocio en `app/services/`.** Puntaje, rachas y sincronización van en servicios, no en los controladores.
 - **Tests con Minitest**, el framework que trae Rails.
 - **Catálogo de crípticos**: se usa la API de la cátedra sin modificaciones (`https://ecorrons.github.io/cryptics-api/v1/cryptics.json`).

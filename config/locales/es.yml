@@ -10,6 +10,9 @@ es:
       difficulty:
         one: Dificultad
         other: Dificultades
+      setting:
+        one: Configuración
+        other: Configuración
     attributes:
       user:
         email_address: Email
@@ -30,3 +33,6 @@ es:
         multiplier: Multiplicador
         reference_seconds: Tiempo de referencia (segundos)
         position: Orden
+      setting:
+        cryptics_source_url: URL de la fuente de crípticos
+        welcome_text: Texto de bienvenida

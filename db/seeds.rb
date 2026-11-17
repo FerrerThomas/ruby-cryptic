@@ -56,3 +56,6 @@ end
     difficulty.assign_attributes(attrs.except(:key).merge(position: position))
   end
 end
+
+# URL de la fuente de crípticos y texto de bienvenida (valores por defecto en Setting).
+Setting.current
