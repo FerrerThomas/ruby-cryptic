@@ -94,6 +94,14 @@ Un usuario desactivado no puede iniciar sesión, y si ya estaba logueado pierde 
     end
     ```
   - Los controladores del backend van en el namespace `Admin` y heredan de `Admin::BaseController`, que usa el layout `admin`.
+  - **Permisos por rol: por defecto, solo admins.** Todo controlador del backend rechaza al editor de puntajes, aunque escriba la URL a mano (lo redirige al panel con un aviso). Los pocos que el editor sí puede usar lo habilitan explícitamente:
+    ```ruby
+    class Admin::DifficultiesController < Admin::BaseController
+      allow_score_editor                            # todo el controlador
+      # allow_score_editor only: %i[ index update ] # o solo algunas acciones
+    end
+    ```
+    Si se olvidan de esto, la pantalla queda solo para admins (el error "seguro"). Para ocultar links en las vistas: `Current.user.admin?`.
 - **Configuración del juego en la base, no en el código.** Se edita desde el backend y la cargan los seeds:
   - `CrypticType`: los 13 tipos de la API (`key: "anagrama"`) con su nombre para mostrar y sus `points` (10 a 1000).
   - `Difficulty`: fácil, medio y avanzado (`key: "medio"`) con su `multiplier` (mayor que 0 y hasta 5) y su `reference_seconds` (60/180/300). El tiempo de referencia es fijo: no se puede cambiar.
