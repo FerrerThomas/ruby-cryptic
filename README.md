@@ -12,7 +12,7 @@ El enunciado y la presentación de la cátedra están en [`Docs/`](Docs/). El se
 
 | Herramienta | Versión |
 |---|---|
-| Ruby | 3.4 (en Windows: [RubyInstaller](https://rubyinstaller.org/) **con DevKit**) |
+| Ruby | 3.4.13 o superior (en Windows: [RubyInstaller](https://rubyinstaller.org/) **con DevKit**) |
 | Rails | 8.1 |
 | Node.js | 20 o 22 |
 | Yarn | 1.x (`npm install -g yarn`) |
