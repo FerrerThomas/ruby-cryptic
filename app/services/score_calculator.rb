@@ -1,14 +1,3 @@
-# Calcula los puntos de un críptico resuelto, según el enunciado:
-#
-#   puntos = base × tiempo × pistas × racha (× 2 si es el críptico del día)
-#
-# - base   = puntos del tipo × multiplicador de la dificultad (desde la configuración, #5)
-# - tiempo = 1 si resolvió dentro del tiempo de referencia; si no, referencia ÷ tiempo (mínimo 0,25)
-# - pistas = 1 − 0,20 × pistas usadas
-# - racha  = 1 + 0,05 × días de racha contando hoy (máximo 1,5)
-# - Se redondea al entero más cercano y un críptico resuelto da como mínimo 10 puntos.
-# - Rendirse da 0 puntos: en ese caso no se usa el calculador (ver SURRENDER_POINTS).
-#
 # Las cuentas se hacen con Rational para no arrastrar errores de punto flotante
 # (200 × 0,75 × 0,8 × 1,2 da exactamente 144).
 #
@@ -22,7 +11,7 @@
 #     hints_used: game.hints_used,
 #     streak_days: streak_days_including_today,
 #     daily: cryptic_of_the_day?
-#   ) # => 144
+#   ) # => 144 ejemplo
 #
 # Para mostrar el detalle de la cuenta: ScoreCalculator.new(...) y leer los factores.
 class ScoreCalculator
