@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_11_17_130000) do
+ActiveRecord::Schema[8.1].define(version: 2026_11_26_120000) do
   create_table "cryptic_types", force: :cascade do |t|
     t.string "key", null: false
     t.string "name", null: false
@@ -19,6 +19,33 @@ ActiveRecord::Schema[8.1].define(version: 2026_11_17_130000) do
     t.datetime "updated_at", null: false
     t.index ["key"], name: "index_cryptic_types_on_key", unique: true
     t.check_constraint "points BETWEEN 10 AND 1000", name: "cryptic_types_points_range"
+  end
+
+  create_table "cryptics", force: :cascade do |t|
+    t.string "source_id", null: false
+    t.text "statement", null: false
+    t.string "enumeration", null: false
+    t.string "answer", null: false
+    t.json "definitions", default: [], null: false
+    t.json "indicators", default: [], null: false
+    t.json "material", default: [], null: false
+    t.integer "cryptic_type_id", null: false
+    t.integer "difficulty_id", null: false
+    t.text "help_text"
+    t.text "explanation"
+    t.string "author"
+    t.string "origin", null: false
+    t.boolean "active", default: true, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["active"], name: "index_cryptics_on_active"
+    t.index ["cryptic_type_id"], name: "index_cryptics_on_cryptic_type_id"
+    t.index ["difficulty_id"], name: "index_cryptics_on_difficulty_id"
+    t.index ["source_id"], name: "index_cryptics_on_source_id", unique: true
+    t.check_constraint "json_type(definitions) = 'array'", name: "cryptics_definitions_is_array"
+    t.check_constraint "json_type(indicators) = 'array'", name: "cryptics_indicators_is_array"
+    t.check_constraint "json_type(material) = 'array'", name: "cryptics_material_is_array"
+    t.check_constraint "length(trim(statement)) > 0 AND length(trim(answer)) > 0", name: "cryptics_statement_and_answer_not_blank"
   end
 
   create_table "difficulties", force: :cascade do |t|
@@ -63,5 +90,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_11_17_130000) do
     t.check_constraint "role IN ('admin', 'score_editor')", name: "users_role_check"
   end
 
+  add_foreign_key "cryptics", "cryptic_types"
+  add_foreign_key "cryptics", "difficulties"
   add_foreign_key "sessions", "users"
 end
