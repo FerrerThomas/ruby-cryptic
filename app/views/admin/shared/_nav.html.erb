@@ -5,6 +5,7 @@
   <div class="container d-flex gap-1 overflow-x-auto">
     <%# Para todos los roles %>
     <%= admin_nav_link "Inicio", admin_root_path, icon: "house", controller: "dashboard" %>
+    <%= admin_nav_link "Puntajes", edit_admin_scores_path, icon: "trophy", controller: "scores" %>
 
     <% if Current.user.admin? %>
       <%# Solo admins. Ej.: admin_nav_link "Crípticos", admin_cryptics_path, icon: "puzzle", controller: "cryptics" %>

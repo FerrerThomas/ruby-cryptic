@@ -4,6 +4,9 @@ Rails.application.routes.draw do
   # Backend de administración (requiere login)
   namespace :admin do
     root "dashboard#index"
+
+    # Puntos por tipo y multiplicadores (admin y editor de puntajes)
+    resource :scores, only: %i[ edit update ]
   end
 
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
