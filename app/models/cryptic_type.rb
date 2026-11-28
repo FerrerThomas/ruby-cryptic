@@ -8,6 +8,9 @@ class CrypticType < ApplicationRecord
   # La clave es la que trae la API: no se cambia una vez creada.
   attr_readonly :key
 
+  # No se puede borrar un tipo que tenga crípticos.
+  has_many :cryptics, dependent: :restrict_with_error
+
   validates :key, presence: true, uniqueness: true, format: { with: KEY_FORMAT }
   validates :name, presence: true
   validates :points, numericality: { only_integer: true, greater_than_or_equal_to: 10, less_than_or_equal_to: 1000 }

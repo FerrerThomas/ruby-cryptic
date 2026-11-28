@@ -1,0 +1,31 @@
+mate:
+  source_id: cr-001
+  statement: La cama tejida esconde la infusión argentina
+  enumeration: (4)
+  answer: MATE
+  definitions: ["la infusión argentina"]
+  indicators: ["esconde"]
+  material: ["cama tejida"]
+  cryptic_type: oculta
+  difficulty: facil
+  help_text: La respuesta está escrita de corrido en las dos primeras palabras.
+  explanation: ca[MA TE]jida esconde MATE.
+  author: Cátedra
+  origin: Cátedra de Ruby on Rails
+  active: true
+
+camisa:
+  source_id: cr-013
+  statement: Mi metido en el hogar da una prenda
+  enumeration: (6)
+  answer: CAMISA
+  definitions: ["una prenda"]
+  indicators: ["metido en"]
+  material: ["Mi", "el hogar"]
+  cryptic_type: contenedor
+  difficulty: medio
+  help_text: El hogar es una palabra de cuatro letras. Partila al medio y meté MI.
+  explanation: "MI dentro de CASA (el hogar): CA + MI + SA = CAMISA."
+  author: Cátedra
+  origin: Cátedra de Ruby on Rails
+  active: false

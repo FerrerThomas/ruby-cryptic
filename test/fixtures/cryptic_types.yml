@@ -12,3 +12,18 @@ contenedor:
   key: contenedor
   name: Contenedor
   points: 100
+
+doble_definicion:
+  key: doble_definicion
+  name: Doble definición
+  points: 100
+
+iniciales:
+  key: iniciales
+  name: Iniciales
+  points: 100
+
+finales:
+  key: finales
+  name: Finales
+  points: 100

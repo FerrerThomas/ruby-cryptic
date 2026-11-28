@@ -110,6 +110,9 @@ Un usuario desactivado no puede iniciar sesión, y si ya estaba logueado pierde 
 - **Lógica de negocio en `app/services/`.** Puntaje, rachas y sincronización van en servicios, no en los controladores.
 - **Tests con Minitest**, el framework que trae Rails.
 - **Catálogo de crípticos**: se usa la API de la cátedra sin modificaciones (`https://ecorrons.github.io/cryptics-api/v1/cryptics.json`).
+- **El modelo `Cryptic` verifica cada críptico por sí mismo.** Además de los obligatorios, la enumeración y que los fragmentos aparezcan en el enunciado, `WordplayValidator` (`app/validators/`) chequea el juego de palabras de los tipos que se pueden verificar sin un diccionario: oculta, anagrama, iniciales, finales y doble definición. En iniciales y finales se ignoran las palabras de unión (`y`, `e`, `o`, `u`, `ni`): «Colas de álbum, casa y amor» da MAR, no MAYR.
+  - Las listas (`definitions`, `indicators`, `material`) son columnas JSON, y la base exige que sean listas (`json_type(...) = 'array'`).
+  - Para comparar palabras está `TextNormalizer.letters` (`lib/`): sin tildes, mayúsculas, espacios ni signos, y la Ñ distinta de la N. Para la respuesta del jugador: `cryptic.correct_answer?(intento)`.
 
 ## Guía de estilos
 

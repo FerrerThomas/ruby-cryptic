@@ -13,6 +13,9 @@ es:
       setting:
         one: Configuración
         other: Configuración
+      cryptic:
+        one: Críptico
+        other: Crípticos
     attributes:
       user:
         email_address: Email
@@ -33,6 +36,21 @@ es:
         multiplier: Multiplicador
         reference_seconds: Tiempo de referencia (segundos)
         position: Orden
+      cryptic:
+        source_id: Id en la fuente
+        statement: Enunciado
+        enumeration: Enumeración
+        answer: Respuesta
+        definitions: Definiciones
+        indicators: Indicadores
+        material: Material
+        cryptic_type: Tipo
+        difficulty: Dificultad
+        help_text: Ayuda
+        explanation: Explicación
+        author: Autor
+        origin: Origen
+        active: Activo
       setting:
         cryptics_source_url: URL de la fuente de crípticos
         welcome_text: Texto de bienvenida

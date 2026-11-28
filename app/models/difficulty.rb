@@ -11,6 +11,9 @@ class Difficulty < ApplicationRecord
   # La clave viene de la API y el tiempo de referencia es fijo: no se cambian una vez creados.
   attr_readonly :key, :reference_seconds
 
+  # No se puede borrar una dificultad que tenga crípticos.
+  has_many :cryptics, dependent: :restrict_with_error
+
   validates :key, presence: true, uniqueness: true, format: { with: KEY_FORMAT }
   validates :name, presence: true
   validates :multiplier, numericality: { greater_than: 0, less_than_or_equal_to: 5 }
