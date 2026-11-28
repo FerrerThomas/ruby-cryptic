@@ -1,0 +1,102 @@
+<% content_for :title, "Puntajes" %>
+
+<div class="pb-3 mb-4 border-bottom">
+  <div class="eyebrow d-flex align-items-center gap-2"><span class="gem-diamond"></span> Configuración del juego</div>
+  <h1 class="mb-1">Puntajes</h1>
+  <p class="brand-tagline mb-0">
+    Los puntos base de un críptico son los <strong>puntos de su tipo × el multiplicador de su dificultad</strong>.
+    Los cambios solo afectan a las partidas que se resuelvan después: las ya jugadas no se recalculan.
+  </p>
+</div>
+
+<%= form_with url: admin_scores_path, method: :patch do %>
+  <div class="row g-4">
+    <div class="col-lg-7">
+      <div class="card-gem-frame h-100">
+        <section class="card-gem h-100 p-4">
+          <h2 class="h4 mb-1">Puntos por tipo</h2>
+          <p class="small text-secondary mb-3">Un número entero entre 10 y 1000.</p>
+
+          <table class="table table-sm align-middle mb-0">
+            <thead>
+              <tr>
+                <th scope="col">Tipo</th>
+                <th scope="col" class="text-end" style="width: 9rem;">Puntos</th>
+              </tr>
+            </thead>
+            <tbody>
+              <% @cryptic_types.each do |type| %>
+                <% field_id = "cryptic_type_#{type.id}_points" %>
+                <tr>
+                  <td>
+                    <label for="<%= field_id %>" class="fw-semibold"><%= type.name %></label>
+                    <span class="d-block small font-monospace text-secondary"><%= type.key %></span>
+                  </td>
+                  <td>
+                    <%= number_field_tag "cryptic_types[#{type.id}][points]", type.points_before_type_cast,
+                          id: field_id, min: 10, max: 1000, step: 1, required: true,
+                          class: class_names("form-control form-control-sm text-end font-monospace", "is-invalid": type.errors[:points].any?) %>
+                    <% if type.errors[:points].any? %>
+                      <div class="invalid-feedback text-end"><%= type.errors[:points].to_sentence %></div>
+                    <% end %>
+                  </td>
+                </tr>
+              <% end %>
+            </tbody>
+          </table>
+        </section>
+      </div>
+    </div>
+
+    <div class="col-lg-5">
+      <div class="card-gem-frame">
+        <section class="card-gem p-4">
+          <h2 class="h4 mb-1">Multiplicador por dificultad</h2>
+          <p class="small text-secondary mb-3">Mayor que 0 y hasta 5. El tiempo de referencia es fijo.</p>
+
+          <table class="table table-sm align-middle mb-0">
+            <thead>
+              <tr>
+                <th scope="col">Dificultad</th>
+                <th scope="col" class="text-end" style="width: 8rem;">Multiplicador</th>
+              </tr>
+            </thead>
+            <tbody>
+              <% @difficulties.each do |difficulty| %>
+                <% field_id = "difficulty_#{difficulty.id}_multiplier" %>
+                <% value = difficulty.errors[:multiplier].any? ? difficulty.multiplier_before_type_cast : difficulty.multiplier&.to_s("F") %>
+                <tr>
+                  <td>
+                    <label for="<%= field_id %>" class="fw-semibold"><%= difficulty.name %></label>
+                    <span class="d-block small text-secondary">
+                      <i class="bi bi-stopwatch" aria-hidden="true"></i>
+                      Referencia: <span class="font-monospace"><%= difficulty.reference_seconds %> s</span>
+                    </span>
+                  </td>
+                  <td>
+                    <div class="input-group input-group-sm has-validation">
+                      <span class="input-group-text">×</span>
+                      <%= number_field_tag "difficulties[#{difficulty.id}][multiplier]", value,
+                            id: field_id, min: 0.01, max: 5, step: 0.01, required: true,
+                            class: class_names("form-control text-end font-monospace", "is-invalid": difficulty.errors[:multiplier].any?) %>
+                      <% if difficulty.errors[:multiplier].any? %>
+                        <div class="invalid-feedback text-end"><%= difficulty.errors[:multiplier].to_sentence %></div>
+                      <% end %>
+                    </div>
+                  </td>
+                </tr>
+              <% end %>
+            </tbody>
+          </table>
+        </section>
+      </div>
+    </div>
+  </div>
+
+  <div class="d-flex justify-content-end mt-4">
+    <%= button_tag type: "submit", class: "btn btn-gem px-4 py-2 d-flex align-items-center gap-2" do %>
+      <i class="bi bi-check2-circle" aria-hidden="true"></i>
+      <span>Guardar cambios</span>
+    <% end %>
+  </div>
+<% end %>
