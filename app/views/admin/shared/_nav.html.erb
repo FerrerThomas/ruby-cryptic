@@ -1,0 +1,13 @@
+<%# Menú del backend.
+    Ocultar un link NO alcanza como permiso: cada controlador lo controla en el servidor
+    (ver Admin::BaseController y allow_score_editor). Acá solo se decide qué se muestra. %>
+<nav class="admin-nav" aria-label="Secciones del backend">
+  <div class="container d-flex gap-1 overflow-x-auto">
+    <%# Para todos los roles %>
+    <%= admin_nav_link "Inicio", admin_root_path, icon: "house", controller: "dashboard" %>
+
+    <% if Current.user.admin? %>
+      <%# Solo admins. Ej.: admin_nav_link "Crípticos", admin_cryptics_path, icon: "puzzle", controller: "cryptics" %>
+    <% end %>
+  </div>
+</nav>

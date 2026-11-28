@@ -185,6 +185,39 @@
   box-shadow: 0 4px 20px -8px rgba($ruby-700, .08);
 }
 
+// Menú del backend: pestañas en mayúsculas; la activa en rubí con un rombito
+.admin-nav {
+  border-top: 1px solid rgba($ruby-100, .8);
+
+  &__link {
+    display: inline-flex;
+    flex-shrink: 0;
+    align-items: center;
+    gap: .4rem;
+    padding: .6rem .75rem;
+    border-bottom: 2px solid transparent;
+    color: $ink-muted;
+    font-size: .75rem;
+    font-weight: 600;
+    letter-spacing: .12em;
+    text-transform: uppercase;
+    text-decoration: none;
+    white-space: nowrap;
+    transition: color .15s ease, border-color .15s ease;
+
+    &:hover,
+    &:focus-visible {
+      color: $ruby-700;
+    }
+
+    &.is-active {
+      color: $ruby-700;
+      font-weight: 700;
+      border-bottom-color: $ruby-600;
+    }
+  }
+}
+
 .badge-role {
   @include chamfer(4px);
   font-family: $font-family-monospace;
