@@ -7,6 +7,9 @@ Rails.application.routes.draw do
 
     # Puntos por tipo y multiplicadores (admin y editor de puntajes)
     resource :scores, only: %i[ edit update ]
+
+    # URL de la fuente de crípticos y texto de bienvenida (solo admin)
+    resource :settings, only: %i[ edit update ]
   end
 
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html

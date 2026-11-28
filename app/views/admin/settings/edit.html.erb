@@ -1,0 +1,50 @@
+<% content_for :title, "Configuración" %>
+
+<div class="pb-3 mb-4 border-bottom">
+  <div class="eyebrow d-flex align-items-center gap-2"><span class="gem-diamond"></span> Configuración del juego</div>
+  <h1 class="mb-1">Configuración general</h1>
+  <p class="brand-tagline mb-0">De dónde se sincronizan los crípticos y qué ven los jugadores al entrar.</p>
+</div>
+
+<div class="card-gem-frame" style="max-width: 48rem;">
+  <section class="card-gem p-4 p-sm-5">
+    <%= form_with model: @setting, url: admin_settings_path, method: :patch do |form| %>
+      <div class="mb-4">
+        <%= form.label :cryptics_source_url, class: "form-label" %>
+        <%= form.url_field :cryptics_source_url, required: true,
+              class: class_names("form-control font-monospace", "is-invalid": @setting.errors[:cryptics_source_url].any?),
+              aria: { describedby: "cryptics_source_url_help" } %>
+        <% if @setting.errors[:cryptics_source_url].any? %>
+          <div class="invalid-feedback"><%= @setting.errors[:cryptics_source_url].to_sentence %></div>
+        <% end %>
+        <div id="cryptics_source_url_help" class="form-text">
+          La API de la cátedra, una copia propia en GitHub Pages o un servidor local.
+          Tiene que ser una dirección <span class="font-monospace">http://</span> o <span class="font-monospace">https://</span>.
+          La de la cátedra es <span class="font-monospace user-select-all"><%= Setting::DEFAULT_CRYPTICS_SOURCE_URL %></span>
+        </div>
+      </div>
+
+      <div class="mb-4" data-controller="char-counter">
+        <%= form.label :welcome_text, class: "form-label" %>
+        <%= form.text_area :welcome_text, rows: 5, required: true, maxlength: Setting::WELCOME_TEXT_MAX_LENGTH,
+              class: class_names("form-control", "is-invalid": @setting.errors[:welcome_text].any?),
+              aria: { describedby: "welcome_text_help" },
+              data: { char_counter_target: "input", action: "input->char-counter#update" } %>
+        <% if @setting.errors[:welcome_text].any? %>
+          <div class="invalid-feedback"><%= @setting.errors[:welcome_text].to_sentence %></div>
+        <% end %>
+        <div id="welcome_text_help" class="form-text d-flex flex-wrap justify-content-between gap-2">
+          <span>Se muestra en la pantalla de bienvenida del juego.</span>
+          <span class="font-monospace" data-char-counter-target="output">Máximo <%= Setting::WELCOME_TEXT_MAX_LENGTH %> caracteres</span>
+        </div>
+      </div>
+
+      <div class="d-flex justify-content-end">
+        <%= form.button type: "submit", class: "btn btn-gem px-4 py-2 d-flex align-items-center gap-2" do %>
+          <i class="bi bi-check2-circle" aria-hidden="true"></i>
+          <span>Guardar cambios</span>
+        <% end %>
+      </div>
+    <% end %>
+  </section>
+</div>
